@@ -11,6 +11,9 @@ class Item:
         return "Item"
     
     def swap_items(self):
+        pass
+
+    def __str__(self):
         return f"An object of type {self.get_category()} with id {self.id}."
         
 
