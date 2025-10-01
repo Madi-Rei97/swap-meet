@@ -34,56 +34,77 @@ class Vendor:
         
         return False
     
-    def swap_first_item():
-        """It takes one argument: an instance of another Vendor (other_vendor), representing the friend that the vendor is swapping with
-This method considers the first item in the instance's inventory, and the first item in the friend's inventory
-It removes the first item from its inventory, and adds the friend's first item
-It removes the first item from the friend's inventory, and adds the instances first item
-It returns True
-If either itself or the friend have an empty inventory, the method returns False"""
-        pass
+    def swap_first_item(self, other_vendor):
+        if not self.inventory or not other_vendor.inventory:
+            return False
+        
+        elif self.inventory and other_vendor.inventory:
+            self.inventory.append(other_vendor.inventory[0])
+            other_vendor.inventory.append(self.inventory[0])
+            self.inventory.remove(self.inventory[0]) 
+            other_vendor.inventory.remove(other_vendor.inventory[0])
+            return True
+        
+    def get_by_category(self, category):
+        
+        list_of_items = []
 
-    def get_by_category():
+        for item in self.inventory:
+            if item.get_category() == category:
+                list_of_items.append(item)
 
-        """Vendor objects have an instance method named get_by_category
+        return list_of_items
 
-This method takes one argument: a string, representing a category
-This method returns a list of objects in the inventory with that category
-If there are no items in the inventory that match the category argument, the method returns an empty list
+    def get_best_by_category(self, category):
+
+        if self.inventory: 
+            dictionary = {}
+
+            for item in self.inventory:
+                if item.get_category() == category:
+                    dictionary[item] = item.condition
+    
+            for item, condition in dictionary.items():
+                if condition == 5:
+                    return item
+    
+            for item, condition in dictionary.items():
+                if condition == 4:
+                    return item
+                
+            for item, condition in dictionary.items():
+                if condition == 3:
+                    return item
+                
+            
+            for item, condition in dictionary.items():
+                if condition == 2:
+                    return item
+            
+            for item, condition in dictionary.items():
+                if condition == 1:
+                    return item
+            
+            for item, condition in dictionary.items():
+                if condition == 0:
+                    return item
+        else: 
+            return None
+
+
+    def swap_best_by_category(self, other_vendor, my_priority, their_priority):
+
+        my_item = self.get_best_by_category(their_priority)
+        their_item = other_vendor.get_best_by_category(my_priority)
+        swap = self.swap_items(other_vendor, my_item, their_item)
+
+        return swap
+
+
+
+
+
 """
-        pass
-
-    def get_best_by_category():
-
-        """It takes one argument: a string that represents a category
-This method looks through the instance's inventory for the item with the highest condition and matching category
-It returns this item
-If there are no items in the inventory that match the category, it returns None
-It returns a single item even if there are duplicates (two or more of the same item with the same condition)"""
-
-        pass
-
-    def swap_best_by_category():
-
-        """The remaining tests in wave 6 imply:
-
-Vendors have a method named swap_best_by_category, which will swap the best item of certain categories with another Vendor
-It takes in three arguments
-other_vendor, which represents another Vendor instance to trade with
-my_priority, which represents a category that the Vendor wants to receive
-their_priority, which represents a category that other_vendor wants to receive
-The best item in my inventory that matches their_priority category is swapped with the best item in other_vendor's inventory that matches my_priority
-It returns True
-If the Vendor has no item that matches their_priority category, swapping does not happen, and it returns False
-If other_vendor has no item that matches my_priority category, swapping does not happen, and it returns False
-"""
-        pass
-
-
-
-
-"""
-
 
 Optional Enhancements
 Should a project be completed before submission, and there is a desire for optional enhancements, consider this idea:
@@ -101,13 +122,6 @@ What is our test suite missing?
 
 Identify gaps or edge cases it'd be helpful to cover
 Write tests for the cases you identify
-
-
-
-
-
-
 """
-
 
 
