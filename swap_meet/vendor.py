@@ -57,40 +57,22 @@ class Vendor:
 
     def get_best_by_category(self, category):
 
-        if self.inventory: 
-            dictionary = {}
+        best_item = None
+        best_condition = -1
 
-            for item in self.inventory:
-                if item.get_category() == category:
-                    dictionary[item] = item.condition
-    
-            for item, condition in dictionary.items():
-                if condition == 5:
-                    return item
-    
-            for item, condition in dictionary.items():
-                if condition == 4:
-                    return item
-                
-            for item, condition in dictionary.items():
-                if condition == 3:
-                    return item
-                
-            
-            for item, condition in dictionary.items():
-                if condition == 2:
-                    return item
-            
-            for item, condition in dictionary.items():
-                if condition == 1:
-                    return item
-            
-            for item, condition in dictionary.items():
-                if condition == 0:
-                    return item
-        else: 
-            return None
+        if not self.inventory:
+            return best_item
 
+        for item in self.inventory:
+            if item.get_category() == category:
+                if item.condition > best_condition:
+                    best_condition = item.condition
+                    best_item = item
+
+                    if best_condition == 5:
+                        return best_item
+        
+        return best_item
 
     def swap_best_by_category(self, other_vendor, my_priority, their_priority):
 
@@ -100,28 +82,26 @@ class Vendor:
 
         return swap
 
+    def get_newest(self):
 
+        newest_item = None
 
+        if not self.inventory:
+            return newest_item
 
+        newest_item = self.inventory[0]
 
-"""
+        for item in self.inventory:
+            if item.age < newest_item.age:
+                newest_item = item
 
-Optional Enhancements
-Should a project be completed before submission, and there is a desire for optional enhancements, consider this idea:
+        return newest_item
 
-Items have age
+    def swap_by_newest(self, other_vendor):
+        
+        my_item = self.get_newest()
+        their_item = other_vendor.get_newest()
+        swap = self.swap_items(other_vendor, my_item, their_item)
 
-Add an age attribute to all Items
-Implement a Vendor method named swap_by_newest, using any logic that seems appropriate
-Write unit tests for swap_by_newest
-Take a look for error handling opportunities
-
-What issues could arise if we pass a string (or any object other than an integer) for the id of an Item? How could we prevent that?
-What other opportunities for error handling do you see?
-What is our test suite missing?
-
-Identify gaps or edge cases it'd be helpful to cover
-Write tests for the cases you identify
-"""
-
+        return swap
 
