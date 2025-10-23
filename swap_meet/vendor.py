@@ -1,5 +1,3 @@
-
-
 class Vendor:
     def __init__(self, inventory = None):
         self.inventory = [] if inventory is None else inventory
@@ -9,12 +7,13 @@ class Vendor:
         return item
     
     def remove(self, item):
-        if item in self.inventory:
-            self.inventory.remove(item)
-            return item
-        else: 
+
+        if item not in self.inventory:
             return False
         
+        self.inventory.remove(item)
+        return item
+
     def get_by_id(self, item_id):
 
         for item in self.inventory:
@@ -25,35 +24,41 @@ class Vendor:
     
     def swap_items(self, other_vendor, my_item, their_item):
 
-        if my_item in self.inventory and their_item in other_vendor.inventory:
-            self.inventory.remove(my_item) 
-            self.inventory.append(their_item)
-            other_vendor.inventory.remove(their_item)
-            other_vendor.inventory.append(my_item)
-            return True
-        
-        return False
+        if my_item not in self.inventory or their_item not in other_vendor.inventory:
+            return False
+            
+        self.inventory.remove(my_item) 
+        self.inventory.append(their_item)
+        other_vendor.inventory.remove(their_item)
+        other_vendor.inventory.append(my_item)
+        return True
+
     
     def swap_first_item(self, other_vendor):
+
         if not self.inventory or not other_vendor.inventory:
             return False
         
-        elif self.inventory and other_vendor.inventory:
-            self.inventory.append(other_vendor.inventory[0])
-            other_vendor.inventory.append(self.inventory[0])
-            self.inventory.remove(self.inventory[0]) 
-            other_vendor.inventory.remove(other_vendor.inventory[0])
-            return True
+        self.swap_items(other_vendor, self.inventory[0], other_vendor.inventory[0])
+        return True
+
+        # self.inventory.append(other_vendor.inventory[0])
+        # other_vendor.inventory.append(self.inventory[0])
+        # self.inventory.remove(self.inventory[0]) 
+        # other_vendor.inventory.remove(other_vendor.inventory[0])
+        
         
     def get_by_category(self, category):
         
-        list_of_items = []
+        # list_of_items = []
 
-        for item in self.inventory:
-            if item.get_category() == category:
-                list_of_items.append(item)
+        # for item in self.inventory:
+        #     if item.get_category() == category:
+        #         list_of_items.append(item)
 
-        return list_of_items
+        # return list_of_items
+    
+        return [item for item in self.inventory if item.get_category() == category]
 
     def get_best_by_category(self, category):
 

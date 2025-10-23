@@ -14,17 +14,17 @@ class Item:
         return f"An object of type {self.get_category()} with id {self.id}."
         
     def condition_description(self):
-        if self.condition == 0:
+        if self.condition < 1:
             return "Trash"
-        if self.condition == 1:
+        if self.condition >= 1 and self.condition < 2:
             return "Heavily used"
-        if self.condition == 2:
+        if self.condition >= 2 and self.condition < 3:
             return "Between the rag box and donation"
-        if self.condition == 3:
+        if self.condition >= 3 and self.condition < 4:
             return "Moderately used"
-        if self.condition == 4:
+        if self.condition >= 4 and self.condition < 5:
             return "Lightly used"
-        if self.condition == 5:
+        if self.condition >= 5:
             return "Like new"
 
     def get_age(self):
