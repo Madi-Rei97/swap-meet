@@ -6,7 +6,7 @@ from swap_meet.decor import Decor
 from swap_meet.electronics import Electronics
 
 #@pytest.mark.skip
-def test_swap_best_by_category():
+def test_swap_best_by_age():
     # Arrange
     # me
     item_a = Decor(age=5)
@@ -34,3 +34,7 @@ def test_swap_best_by_category():
     assert len(jesse.inventory) == 3
     assert item_c in jesse.inventory
     assert item_d in tai.inventory
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_e in jesse.inventory
+    assert item_f in jesse.inventory   

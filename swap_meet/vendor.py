@@ -68,14 +68,13 @@ class Vendor:
         if not self.inventory:
             return best_item
 
-        for item in self.inventory:
-            if item.get_category() == category:
-                if item.condition > best_condition:
-                    best_condition = item.condition
-                    best_item = item
+        for item in self.get_by_category(category):
+            if item.condition > best_condition:
+                best_condition = item.condition
+                best_item = item
 
-                    if best_condition == 5:
-                        return best_item
+                # if best_condition == 5:
+                #     return best_item
         
         return best_item
 

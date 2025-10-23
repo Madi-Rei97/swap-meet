@@ -107,11 +107,15 @@ def test_swap_best_by_category():
         their_priority="Decor"
     )
 
-    assert result
+    assert result is True
     assert len(tai.inventory) == 3
     assert len(jesse.inventory) == 3
     assert item_c in jesse.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
     assert item_f in tai.inventory
+    assert item_a in tai.inventory  
+    assert item_b in tai.inventory
 
     #raise Exception("Complete this test according to comments below.")
     # *********************************************************************
@@ -150,6 +154,10 @@ def test_swap_best_by_category_reordered():
     assert len(tai.inventory) == 3
     assert len(jesse.inventory) == 3
     assert item_c in jesse.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
+    assert item_b in tai.inventory
+    assert item_a in tai.inventory  
     assert item_f in tai.inventory
 
     #raise Exception("Complete this test according to comments below.")
@@ -243,8 +251,13 @@ def test_swap_best_by_category_no_match_is_false():
     assert not result
     assert len(tai.inventory) == 3
     assert len(jesse.inventory) == 3
-    assert all (item in tai.inventory for item in tai_list)
-    assert all (item in jesse.inventory for item in jesse_list)
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_c in tai.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory    
+    # assert all (item in tai.inventory for item in tai_list)
+    # assert all (item in jesse.inventory for item in jesse_list)
 
 
 
@@ -287,8 +300,13 @@ def test_swap_best_by_category_no_other_match_is_false():
     assert not result
     assert len(tai.inventory) == 3
     assert len(jesse.inventory) == 3
-    assert all (item in tai.inventory for item in tai_list)
-    assert all (item in jesse.inventory for item in jesse_list)
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_c in tai.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
+    # assert all (item in tai.inventory for item in tai_list)
+    # assert all (item in jesse.inventory for item in jesse_list)
 
 
 
